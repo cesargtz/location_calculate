@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_location">
+    <t t-call="report.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t t-call="report.internal_layout">
+          <div class="page">
+            <h2 class="text-center" style="color:00452b">Reporte de Ubicaciones - <span t-esc="locations.name"/></h2>
+            <table class="table table-bordered">
+                 <tr class="success text-center" style="color:00452b; font-size:11px;">
+                  <!-- Header -->
+                  <th>Ubicación</th>
+                  <th>Recepción Camión</th>
+                  <th>Salida Camión/Vagón</th>
+                  <th>Tons Disponibles</th>
+                  <th>Descontado</th>
+                  <th>Trans. Entrada</th>
+                  <th>Trans. Salida</th>
+                  <th>Salida Exed.</th>
+                  <th>Existencia</th>
+                </tr>
+                <tr t-foreach="location_detail" t-as="a" style="font-size:11px;">
+                  <td class="active" style="font-size:12px;"><strong><span t-field="a.name"/></strong></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_reception))"/></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_outlet))"/></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_available))" /></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.discount))"/></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.transfer_dest))"/></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.transfer_origin))"/></td>
+                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_outlet_surplus))"/></td>
+                  <td class="text-success" t-if="a.existence > 0">
+                    <span  t-esc="'{0:,.3f}'.format(float(a.existence))"/>
+                  </td>
+                  <td t-else="">
+                    <span class="text-danger"  t-esc="'{0:,.3f}'.format(float(a.existence))"/>
+                  </td>
+                </tr>
+            </table>
+            <br/>
+            <div t-if="quality == True" >
+              <h3 class="text-center" style="color:00452b">Porcentaje de Calidad</h3>
+              <table class="table">
+                <tr  style="color:00452b; font-size:11px;">
+                  <th>Ubicación</th>
+                  <th>Humedad</th>
+                  <th>Daño</th>
+                  <th>Impureza</th>
+                  <th>Quebrado</th>
+                </tr>
+                <tr  t-foreach="location_detail" t-as="a">
+                  <td style="font-size:12px;"><span t-esc="a.name"/></td>
+                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_reception))"/></td>
+                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_damaged))"/></td>
+                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_impurity))"/></td>
+                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_break))"/></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>

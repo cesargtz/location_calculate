@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="wizard_form_view">
+      <field name="name">wizard.form</field>
+      <field name="model">locationcalculate.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Calculate Location">
+          <group>
+            <field name="location_ids"/>
+            <field name="quality" string="Incluir Calidad"/>
+          </group>
+          <footer>
+            <!-- <button name="button_save" string="Save" type="object" class="oe_highlight"/> -->
+            <button name="check_report" string="Generar" type="object" class="oe_highlight"/>
+            or
+            <button special="cancel" string="Cancel" class="oe_link" default_focus="1"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_open_wizard" model="ir.actions.act_window">
+      <field name="name">Open Wizard</field>
+      <field name="res_model">locationcalculate.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="wizard_location" name="Reporte Ubicaciones" parent="stock.menu_warehouse_report" action="action_open_wizard" sequence="5"/>
+  </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+      <report
+        id="action_report_locationCalculate"
+        model="report.location_calculate.report_location"
+        string="Ubicaciones"
+        report_type="qweb-pdf"
+        paperformat="paperformat_us_landscape"
+        name="location_calculate.report_location"
+        file="location_calculate.report_location"
+      />
+    </data>
+</odoo>
