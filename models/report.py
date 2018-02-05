@@ -16,8 +16,12 @@ class ReportLocationCalculate(models.AbstractModel):
         docs = self.env[self.model].browse(self.env.context.get('active_id'))
         location_group = docs.location_ids
         location_detail = []
+        total = 0
+        total_existence = 0
         for location in location_group.location_in_ids:
             # _logger.critical(location.name)
+            total += location.total_tons_available
+            total_existence += location.existence
             location_detail.append(location)
 
         docargs = {
@@ -27,5 +31,7 @@ class ReportLocationCalculate(models.AbstractModel):
             'quality':docs.quality,
             'locations': location_group,
             'location_detail': location_detail,
+            'total': total,
+            'total_existence': total_existence,
         }
         return self.env['report'].render('location_calculate.report_location', docargs)

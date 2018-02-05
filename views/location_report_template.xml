@@ -35,6 +35,27 @@
                     <span class="text-danger"  t-esc="'{0:,.3f}'.format(float(a.existence))"/>
                   </td>
                 </tr>
+                <tr style="font-size:11px;">
+                  <td class="active" style="font-size:12px;"><strong>Total</strong></td>
+                  <td></td>
+                  <td></td>
+                  <td class="text-success" t-if="total > 0">
+                    <strong><span  t-esc="'{0:,.3f}'.format(float(total))" /></strong>
+                  </td>
+                  <td t-else="">
+                    <strong><span class="text-danger"  t-esc="'{0:,.3f}'.format(float(total))" /></strong>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="text-success" t-if="total_existence > 0">
+                    <strong><span  t-esc="'{0:,.3f}'.format(float(total_existence))" /></strong>
+                  </td>
+                  <td t-else="">
+                    <strong><span class="text-danger"   t-esc="'{0:,.3f}'.format(float(total_existence))" /></strong>
+                  </td>
+                </tr>
             </table>
             <br/>
             <div t-if="quality == True" >
