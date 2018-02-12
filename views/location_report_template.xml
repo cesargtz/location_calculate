@@ -3,95 +3,123 @@
   <template id="report_location">
     <t t-call="report.html_container">
       <t t-foreach="docs" t-as="doc">
-        <t t-call="report.internal_layout">
-          <div class="page">
-            <h2 class="text-center" style="color:00452b">Reporte de Almacén - <span t-esc="locations.name"/></h2>
-            <div>
+        <!-- <t t-call="report.external_layout"> -->
+        <div class="page">
+          <div style="display: inline; float:left; width:100%">
+            <img style="max-width: 250px; float:left; margin:0px 0px 30px 5px;" src="/location_calculate/static/src/img/logo_yecora.png"/>
+            <h3 style="color:4a8b71; float:right; padding:13px 10px 0px 0px;"><strong>Reporte de Almacén - <span t-esc="locations.name"/></strong></h3>
+          </div>
+          <div style="display: inline; float:left; width:100%;">
+            <div  style="display: inline; float:left;">
               <h5>
-                <span  t-if="calculate_tranfer == True">Movimientos Transferidos</span>
-                <span  t-if="calculate_tranfer == False">Todos los Movimientos</span>
-                <span  t-if="calculate_clean_kilos == True"> | Toneladas Limpias</span>
-                <span  t-if="calculate_clean_kilos == False"> | Toneladas Netas</span>
+                <span t-if="calculate_tranfer == True">Movimientos Transferidos</span>
+                <span t-if="calculate_tranfer == False">Todos los Movimientos</span>
+                <span t-if="calculate_clean_kilos == True">
+                  | Toneladas Limpias</span>
+                <span t-if="calculate_clean_kilos == False">
+                  | Toneladas Netas</span>
               </h5>
             </div>
-            <table class="table table-bordered">
-                 <tr class="success text-center" style="color:00452b; font-size:11px;">
-                  <!-- Header -->
-                  <th>Ubicación</th>
-                  <th>Recepción Camión
-                    <br />
-                    <span style="font-size:9px;" t-if="calculate_clean_kilos == False">Toneladas Netas</span>
-                    <span style="font-size:9px;" t-else="">Toneladas Limpias</span>
-                  </th>
-                  <th>Salida Camión/Vagón <br/><span style="font-size:9px;">Toneladas Netas</span></th>
-                  <th>Tons Disponibles<br/><span style="font-size:9px;">Recepcion - Salida</span></th>
-                  <th>Descontado<br/><span style="font-size:9px;">Informativo</span></th>
-                  <th>Traspasos Entrada<br/><span style="font-size:9px;">Toneladas Netas</span></th>
-                  <th>Traspasos Salida<br/><span style="font-size:9px;">Toneladas Netas</span></th>
-                  <th>Salida Exed.<br/><span style="font-size:9px;">Toneladas Netas</span></th>
-                  <th>Existencia</th>
-                </tr>
-                <tr t-foreach="location_detail" t-as="a" style="font-size:11px;">
-                  <td class="active" style="font-size:12px;"><strong><span t-field="a.name"/></strong></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_reception))"/></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_outlet))"/></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_available))" /></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.discount))"/></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.transfer_dest))"/></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.transfer_origin))"/></td>
-                  <td><span t-esc="'{0:,.3f}'.format(float(a.total_outlet_surplus))"/></td>
-                  <td class="text-success" t-if="a.existence > 0">
-                    <span  t-esc="'{0:,.3f}'.format(float(a.existence))"/>
-                  </td>
-                  <td t-else="">
-                    <span class="text-danger"  t-esc="'{0:,.3f}'.format(float(a.existence))"/>
-                  </td>
-                </tr>
-                <tr style="font-size:11px;">
-                  <td class="active" style="font-size:12px;"><strong>Total</strong></td>
-                  <td></td>
-                  <td></td>
-                  <td class="text-success" t-if="total > 0">
-                    <strong><span  t-esc="'{0:,.3f}'.format(float(total))" /></strong>
-                  </td>
-                  <td t-else="">
-                    <strong><span class="text-danger"  t-esc="'{0:,.3f}'.format(float(total))" /></strong>
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td class="text-success" t-if="total_existence > 0">
-                    <strong><span  t-esc="'{0:,.3f}'.format(float(total_existence))" /></strong>
-                  </td>
-                  <td t-else="">
-                    <strong><span class="text-danger"   t-esc="'{0:,.3f}'.format(float(total_existence))" /></strong>
-                  </td>
-                </tr>
-            </table>
-            <br/>
-            <div t-if="quality == True" >
-              <h3 class="text-center" style="color:00452b">Porcentaje de Calidad</h3>
-              <table class="table">
-                <tr  style="color:00452b; font-size:11px;">
-                  <th>Ubicación</th>
-                  <th>Humedad</th>
-                  <th>Daño</th>
-                  <th>Impureza</th>
-                  <th>Quebrado</th>
-                </tr>
-                <tr  t-foreach="location_detail" t-as="a">
-                  <td style="font-size:12px;"><span t-esc="a.name"/></td>
-                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_reception))"/></td>
-                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_damaged))"/></td>
-                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_impurity))"/></td>
-                  <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_break))"/></td>
-                </tr>
-              </table>
+            <div  style="display: inline; float:right;">
+              <t t-set="date" t-value="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+              <h5 class="text-right" t-esc="date"/>
             </div>
           </div>
-        </t>
-      </t>
+          <table class="table table-bordered">
+            <tr class="success text-center" style="color:00452b; font-size:11px;">
+              <!-- Header -->
+              <th>Ubicación</th>
+              <th>Recepción Camión
+                <br/>
+                <span style="font-size:9px;" t-if="calculate_clean_kilos == False">Toneladas Netas</span>
+                <span style="font-size:9px;" t-else="">Toneladas Limpias</span>
+              </th>
+              <th>Salida Camión/Vagón
+                <br/>
+                <span style="font-size:9px;">Toneladas Netas</span>
+              </th>
+              <th>Tons Disponibles<br/>
+                <span style="font-size:9px;">Recepcion - Salida</span>
+              </th>
+              <th>Descontado<br/>
+                <span style="font-size:9px;">Informativo</span>
+              </th>
+              <th>Traspasos Entrada<br/>
+                <span style="font-size:9px;">Toneladas Netas</span>
+              </th>
+              <th>Traspasos Salida<br/>
+                <span style="font-size:9px;">Toneladas Netas</span>
+              </th>
+              <th>Salida Exed.<br/>
+                <span style="font-size:9px;">Toneladas Netas</span>
+              </th>
+              <th>Existencia</th>
+            </tr>
+            <tr t-foreach="location_detail" t-as="a" style="font-size:11px;">
+              <td class="active" style="font-size:12px;">
+                <strong><span t-field="a.name"/></strong>
+              </td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_reception))"/></td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_outlet))"/></td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.total_tons_available))"/></td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.discount))"/></td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.transfer_dest))"/></td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.transfer_origin))"/></td>
+              <td><span t-esc="'{0:,.3f}'.format(float(a.total_outlet_surplus))"/></td>
+              <td class="text-success" t-if="a.existence > 0">
+                <span t-esc="'{0:,.3f}'.format(float(a.existence))"/>
+              </td>
+              <td t-else="">
+                <span class="text-danger" t-esc="'{0:,.3f}'.format(float(a.existence))"/>
+              </td>
+            </tr>
+            <tr style="font-size:11px; ">
+              <td class="active" style="font-size:12px; color:4a8b71;">
+                <strong>Total</strong>
+              </td>
+              <td></td>
+              <td></td>
+              <td class="text-success" t-if="total > 0">
+                <strong><span t-esc="'{0:,.3f}'.format(float(total))"/></strong>
+              </td>
+              <td t-else="">
+                <strong><span class="text-danger" t-esc="'{0:,.3f}'.format(float(total))"/></strong>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-success" t-if="total_existence > 0">
+                <strong><span t-esc="'{0:,.3f}'.format(float(total_existence))"/></strong>
+              </td>
+              <td t-else="">
+                <strong><span class="text-danger" t-esc="'{0:,.3f}'.format(float(total_existence))"/></strong>
+              </td>
+            </tr>
+          </table>
+          <br/>
+          <div t-if="quality == True">
+            <h3 class="text-center" style="color:00452b">Porcentaje de Calidad</h3>
+            <table class="table">
+              <tr style="color:00452b; font-size:11px;">
+                <th>Ubicación</th>
+                <th>Humedad</th>
+                <th>Daño</th>
+                <th>Impureza</th>
+                <th>Quebrado</th>
+              </tr>
+              <tr t-foreach="location_detail" t-as="a">
+                <td style="font-size:12px;"><span t-esc="a.name"/></td>
+                <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_reception))"/></td>
+                <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_damaged))"/></td>
+                <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_impurity))"/></td>
+                <td><span t-esc="'{0:,.2f}'.format(float(a.percentage_quality_break))"/></td>
+              </tr>
+            </table>
+        </div>
+      </div>
+      <!-- </t> -->
     </t>
-  </template>
+  </t>
+</template>
 </odoo>
