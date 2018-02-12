@@ -5,18 +5,30 @@
       <t t-foreach="docs" t-as="doc">
         <t t-call="report.internal_layout">
           <div class="page">
-            <h2 class="text-center" style="color:00452b">Reporte de Ubicaciones - <span t-esc="locations.name"/></h2>
+            <h2 class="text-center" style="color:00452b">Reporte de Almacén - <span t-esc="locations.name"/></h2>
+            <div>
+              <h5>
+                <span  t-if="calculate_tranfer == True">Movimientos Transferidos</span>
+                <span  t-if="calculate_tranfer == False">Todos los Movimientos</span>
+                <span  t-if="calculate_clean_kilos == True"> | Toneladas Limpias</span>
+                <span  t-if="calculate_clean_kilos == False"> | Toneladas Netas</span>
+              </h5>
+            </div>
             <table class="table table-bordered">
                  <tr class="success text-center" style="color:00452b; font-size:11px;">
                   <!-- Header -->
                   <th>Ubicación</th>
-                  <th>Recepción Camión</th>
-                  <th>Salida Camión/Vagón</th>
-                  <th>Tons Disponibles</th>
-                  <th>Descontado</th>
-                  <th>Traspasos Entrada</th>
-                  <th>Traspasos Salida</th>
-                  <th>Salida Exed.</th>
+                  <th>Recepción Camión
+                    <br />
+                    <span style="font-size:9px;" t-if="calculate_clean_kilos == False">Toneladas Netas</span>
+                    <span style="font-size:9px;" t-else="">Toneladas Limpias</span>
+                  </th>
+                  <th>Salida Camión/Vagón <br/><span style="font-size:9px;">Toneladas Netas</span></th>
+                  <th>Tons Disponibles<br/><span style="font-size:9px;">Recepcion - Salida</span></th>
+                  <th>Descontado<br/><span style="font-size:9px;">Informativo</span></th>
+                  <th>Traspasos Entrada<br/><span style="font-size:9px;">Toneladas Netas</span></th>
+                  <th>Traspasos Salida<br/><span style="font-size:9px;">Toneladas Netas</span></th>
+                  <th>Salida Exed.<br/><span style="font-size:9px;">Toneladas Netas</span></th>
                   <th>Existencia</th>
                 </tr>
                 <tr t-foreach="location_detail" t-as="a" style="font-size:11px;">

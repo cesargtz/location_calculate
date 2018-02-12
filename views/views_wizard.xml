@@ -7,7 +7,17 @@
         <form string="Calculate Location">
           <group>
             <field name="location_ids"/>
-            <field name="quality" string="Incluir Calidad"/>
+            <group col="3">
+              <group col="1">
+                <field name="calculate_tranfer" string="Calcular Solo Transferidos"/>
+              </group>
+              <group col="1">
+                <field name="calculate_clean_kilos" string="Usar kilos limpios en recepciones"/>
+              </group>
+              <group col="1">
+                <field name="quality" string="Incluir Calidad"/>
+              </group>
+            </group>
           </group>
           <footer>
             <!-- <button name="button_save" string="Save" type="object" class="oe_highlight"/> -->
