@@ -35,5 +35,7 @@ class ReportLocationCalculate(models.AbstractModel):
             'total_existence': total_existence,
             'calculate_tranfer': docs.calculate_tranfer,
             'calculate_clean_kilos': docs.calculate_clean_kilos,
+            'date_start': docs.date_start,
+            'date_end' : docs.date_end
         }
         return self.env['report'].render('location_calculate.report_location', docargs)

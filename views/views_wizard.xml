@@ -6,17 +6,23 @@
       <field name="arch" type="xml">
         <form string="Calculate Location">
           <group>
-            <field name="location_ids"/>
+            <group>
+                <field name="location_ids"/>
+            </group>
+            <group>
+              <field name="date_start"/>
+              <field name="date_end"/>
+            </group>
             <group col="3">
-              <group col="1">
-                <field name="calculate_tranfer" string="Calcular Solo Transferidos"/>
-              </group>
-              <group col="1">
-                <field name="calculate_clean_kilos" string="Usar kilos limpios en recepciones"/>
-              </group>
-              <group col="1">
-                <field name="quality" string="Incluir Calidad"/>
-              </group>
+                <group col="1">
+                  <field name="calculate_tranfer" string="Calcular Solo Transferidos"/>
+                </group>
+                <group col="1">
+                  <field name="calculate_clean_kilos" string="Usar kilos limpios en recepciones"/>
+                </group>
+                <group col="1">
+                  <field name="quality" string="Incluir Calidad"/>
+                </group>
             </group>
           </group>
           <footer>
